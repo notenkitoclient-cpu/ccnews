@@ -20,6 +20,8 @@ export const POST: APIRoute = async ({ request }) => {
     });
 
     if (!res.ok && res.status !== 409) {
+      const body = await res.text();
+      console.error(`Buttondown error ${res.status}:`, body);
       throw new Error(`Buttondown error: ${res.status}`);
     }
 
