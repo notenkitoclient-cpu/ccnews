@@ -1,5 +1,4 @@
 import type { APIRoute } from 'astro';
-import { Resend } from 'resend';
 
 export const prerender = false;
 
@@ -11,13 +10,18 @@ export const POST: APIRoute = async ({ request }) => {
       return new Response(JSON.stringify({ error: 'Invalid email' }), { status: 400 });
     }
 
-    const resend = new Resend(import.meta.env.RESEND_API_KEY);
-
-    await resend.contacts.create({
-      email,
-      audienceId: import.meta.env.RESEND_AUDIENCE_ID,
-      unsubscribed: false,
+    const res = await fetch('https://api.buttondown.email/v1/subscribers', {
+      method: 'POST',
+      headers: {
+        Authorization: `Token ${import.meta.env.BUTTONDOWN_API_KEY}`,
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({ email }),
     });
+
+    if (!res.ok && res.status !== 409) {
+      throw new Error(`Buttondown error: ${res.status}`);
+    }
 
     return new Response(JSON.stringify({ ok: true }), { status: 200 });
   } catch (err) {

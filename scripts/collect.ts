@@ -7,23 +7,19 @@
  *
  * 新情報があれば:
  *   - src/content/news/ に Markdown ファイルを生成
- *   - Resend 経由でメール配信
+ *   - Buttondown 経由でメール配信
  */
 
 import Anthropic from '@anthropic-ai/sdk';
-import { Resend } from 'resend';
 import * as fs from 'fs';
 import * as path from 'path';
 import * as crypto from 'crypto';
 
 const ANTHROPIC_API_KEY = process.env.ANTHROPIC_API_KEY!;
-const RESEND_API_KEY = process.env.RESEND_API_KEY!;
-const RESEND_AUDIENCE_ID = process.env.RESEND_AUDIENCE_ID!;
-const RESEND_FROM_EMAIL = process.env.RESEND_FROM_EMAIL || 'ccnews <news@ccnews.dev>';
-const SITE_URL = process.env.SITE_URL || 'https://ccnews.dev';
+const BUTTONDOWN_API_KEY = process.env.BUTTONDOWN_API_KEY!;
+const SITE_URL = process.env.SITE_URL || 'https://ccnews.vercel.app';
 
 const anthropic = new Anthropic({ apiKey: ANTHROPIC_API_KEY });
-const resend = new Resend(RESEND_API_KEY);
 
 const CONTENT_DIR = path.join(process.cwd(), 'src/content/news');
 const SEEN_FILE = path.join(process.cwd(), 'scripts/.seen.json');
@@ -219,17 +215,20 @@ async function sendNewsletter(items: Array<{
     ? items[0].title
     : `Claude Code: ${items.length}件の新着情報`;
 
-  await resend.broadcasts.create({
-    audienceId: RESEND_AUDIENCE_ID,
-    from: RESEND_FROM_EMAIL,
-    subject,
-    html,
-  }).then(async ({ data }) => {
-    if (data?.id) {
-      await resend.broadcasts.send(data.id);
-      console.log(`📧 Newsletter sent: ${subject}`);
-    }
+  const res = await fetch('https://api.buttondown.email/v1/emails', {
+    method: 'POST',
+    headers: {
+      Authorization: `Token ${BUTTONDOWN_API_KEY}`,
+      'Content-Type': 'application/json',
+    },
+    body: JSON.stringify({ subject, body: html }),
   });
+
+  if (res.ok) {
+    console.log(`📧 Newsletter sent: ${subject}`);
+  } else {
+    console.error(`Newsletter error: ${res.status}`, await res.text());
+  }
 }
 
 // ── メイン ───────────────────────────────────────────────────
@@ -299,7 +298,7 @@ async function main() {
   saveSeen(seen);
   console.log(`\n📰 New items: ${newItems.length}`);
 
-  if (newItems.length > 0 && RESEND_API_KEY && RESEND_AUDIENCE_ID) {
+  if (newItems.length > 0 && BUTTONDOWN_API_KEY) {
     await sendNewsletter(newItems);
   }
 }
