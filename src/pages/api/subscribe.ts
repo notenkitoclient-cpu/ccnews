@@ -16,7 +16,7 @@ export const POST: APIRoute = async ({ request }) => {
         Authorization: `Token ${import.meta.env.BUTTONDOWN_API_KEY}`,
         'Content-Type': 'application/json',
       },
-      body: JSON.stringify({ email }),
+      body: JSON.stringify({ email_address: email }),
     });
 
     if (!res.ok && res.status !== 409) {
