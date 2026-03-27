@@ -58,22 +58,27 @@ function formatDate(date: Date) {
       ) : (
         <ul class="space-y-0">
           {sorted.map((item) => (
-            <li class="border-b border-gray-50 last:border-0">
+            <li class="border-b border-gray-50 last:border-0 py-4">
+              <div class="flex items-baseline gap-4">
+                <time class="text-xs text-gray-300 tabular-nums shrink-0 font-mono">
+                  {formatDate(item.data.date)}
+                </time>
+                <span class="ml-auto text-xs text-gray-200 shrink-0">
+                  {item.data.source}
+                </span>
+              </div>
               <a
                 href={item.data.sourceUrl}
                 target="_blank"
                 rel="noopener noreferrer"
-                class="flex items-baseline gap-4 py-4 group"
+                class="group block mt-1"
               >
-                <time class="text-xs text-gray-300 tabular-nums shrink-0 font-mono">
-                  {formatDate(item.data.date)}
-                </time>
-                <span class="text-sm text-gray-700 group-hover:text-gray-900 transition-colors leading-snug">
+                <span class="text-sm font-medium text-gray-800 group-hover:text-gray-900 transition-colors leading-snug">
                   {item.data.title}
                 </span>
-                <span class="ml-auto text-xs text-gray-200 shrink-0 group-hover:text-gray-300 transition-colors">
-                  {item.data.source}
-                </span>
+                <p class="mt-1 text-sm text-gray-400 leading-relaxed">
+                  {item.data.summary}
+                </p>
               </a>
             </li>
           ))}
