@@ -12,4 +12,29 @@ const news = defineCollection({
   }),
 });
 
-export const collections = { news };
+const experiments = defineCollection({
+  loader: glob({ pattern: '**/*.md', base: './src/content/experiments' }),
+  schema: z.object({
+    title: z.string(),
+    slug: z.string(),
+    startDate: z.date(),
+    status: z.enum(['設計中', '進行中', '完了', '中断']),
+    budget: z.string().optional(),
+    hypothesis: z.string(),
+    summary: z.string(),
+  }),
+});
+
+const logs = defineCollection({
+  loader: glob({ pattern: '**/*.md', base: './src/content/logs' }),
+  schema: z.object({
+    experiment: z.string(),
+    day: z.number(),
+    date: z.date(),
+    title: z.string(),
+    summary: z.string(),
+    decision: z.string().optional(),
+  }),
+});
+
+export const collections = { news, experiments, logs };

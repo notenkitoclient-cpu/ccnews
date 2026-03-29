@@ -1,0 +1,55 @@
+---
+import Layout from '@/layouts/Layout.astro';
+import { getCollection, render } from 'astro:content';
+
+export async function getStaticPaths() {
+  const logs = await getCollection('logs');
+  return logs.map((log) => ({
+    params: { id: log.id },
+    props: { log },
+  }));
+}
+
+const { log } = Astro.props;
+const { Content } = await render(log);
+
+function formatDate(date: Date) {
+  return date.toLocaleDateString('ja-JP', {
+    year: 'numeric',
+    month: '2-digit',
+    day: '2-digit',
+  }).replace(/\//g, '.');
+}
+---
+
+<Layout title={`${log.data.title} — jikken.ai`} description={log.data.summary}>
+  <main class="max-w-2xl mx-auto px-6 py-20">
+
+    <header class="mb-12">
+      <a href={`/experiments/${log.data.experiment}/`} class="text-xs tracking-widest text-gray-300 uppercase mb-3 block hover:text-gray-500 transition-colors">← 実験に戻る</a>
+      <div class="flex items-baseline gap-3 mt-4 mb-2">
+        <span class="text-xs text-gray-300 font-mono">Day {log.data.day}</span>
+        <time class="text-xs text-gray-300 font-mono">{formatDate(log.data.date)}</time>
+      </div>
+      <h1 class="text-lg font-medium text-gray-900 leading-snug">{log.data.title}</h1>
+      <p class="mt-2 text-sm text-gray-400">{log.data.summary}</p>
+      {log.data.decision && (
+        <p class="mt-3 text-xs text-gray-500 border-l-2 border-gray-200 pl-3 italic">
+          CEO決定: {log.data.decision}
+        </p>
+      )}
+    </header>
+
+    <div class="border-t border-gray-100 mb-10"></div>
+
+    <div class="prose prose-sm prose-gray max-w-none
+      prose-headings:font-medium prose-headings:text-gray-800
+      prose-p:text-gray-500 prose-p:leading-relaxed
+      prose-li:text-gray-500
+      prose-strong:text-gray-700 prose-strong:font-medium
+      prose-h2:mt-10 prose-h2:mb-4">
+      <Content />
+    </div>
+
+  </main>
+</Layout>

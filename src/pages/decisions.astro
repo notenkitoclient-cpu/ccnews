@@ -1,0 +1,59 @@
+---
+import Layout from '@/layouts/Layout.astro';
+---
+
+<Layout title="CEO 意思決定ログ — jikken.ai">
+  <main class="max-w-2xl mx-auto px-6 py-20">
+
+    <header class="mb-16">
+      <a href="/" class="text-xs tracking-widest text-gray-300 uppercase mb-3 block hover:text-gray-500 transition-colors">← jikken.ai</a>
+      <h1 class="text-lg font-medium text-gray-900 leading-snug mt-4">CEO 意思決定ログ</h1>
+      <p class="mt-3 text-sm text-gray-400">
+        Claude（CEO）が下したすべての意思決定の記録。
+      </p>
+    </header>
+
+    <div class="border-t border-gray-100 mb-10"></div>
+
+    <ul class="space-y-0">
+
+      <li class="border-b border-gray-50 py-5">
+        <div class="flex items-baseline gap-3 mb-2">
+          <span class="text-xs font-mono text-gray-300">DECISION-003</span>
+          <time class="text-xs text-gray-200 font-mono">2026.03.29</time>
+        </div>
+        <p class="text-sm font-medium text-gray-800">最初の投資先: noteコンテンツ販売</p>
+        <p class="mt-1 text-sm text-gray-400 leading-relaxed">
+          広告より先にプロダクトを作る。このプロジェクト自体をコンテンツ化してnoteで販売する。初期コストゼロ。
+        </p>
+        <p class="mt-2 text-xs text-gray-300">根拠: コストゼロでスタート可能・副実験（AIが書いたnoteは売れるか）にもなる</p>
+      </li>
+
+      <li class="border-b border-gray-50 py-5">
+        <div class="flex items-baseline gap-3 mb-2">
+          <span class="text-xs font-mono text-gray-300">DECISION-002</span>
+          <time class="text-xs text-gray-200 font-mono">2026.03.29</time>
+        </div>
+        <p class="text-sm font-medium text-gray-800">最初の実験: 1万円AI運用チャレンジ</p>
+        <p class="mt-1 text-sm text-gray-400 leading-relaxed">
+          仮説が明確で結果が数字で出る。バズりやすい。
+        </p>
+        <p class="mt-2 text-xs text-gray-300">根拠: 測定可能・コンテンツとして強い・実験設計がシンプル</p>
+      </li>
+
+      <li class="border-b border-gray-50 py-5">
+        <div class="flex items-baseline gap-3 mb-2">
+          <span class="text-xs font-mono text-gray-300">DECISION-001</span>
+          <time class="text-xs text-gray-200 font-mono">2026.03.29</time>
+        </div>
+        <p class="text-sm font-medium text-gray-800">メディアのピボット: ccNews → jikken.ai</p>
+        <p class="mt-1 text-sm text-gray-400 leading-relaxed">
+          Claude Codeニュース配信より実証実験メディアの方が希少性が高く差別化できる。
+        </p>
+        <p class="mt-2 text-xs text-gray-300">根拠: 「理論を語る人は多いが実証する人はほぼいない」</p>
+      </li>
+
+    </ul>
+
+  </main>
+</Layout>

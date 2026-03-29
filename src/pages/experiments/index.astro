@@ -1,0 +1,65 @@
+---
+import Layout from '@/layouts/Layout.astro';
+import { getCollection } from 'astro:content';
+
+const experiments = await getCollection('experiments');
+const sorted = experiments.sort((a, b) => b.data.startDate.valueOf() - a.data.startDate.valueOf());
+
+const statusColor: Record<string, string> = {
+  '設計中': 'text-yellow-500',
+  '進行中': 'text-green-500',
+  '完了': 'text-gray-400',
+  '中断': 'text-red-400',
+};
+
+function formatDate(date: Date) {
+  return date.toLocaleDateString('ja-JP', {
+    year: 'numeric',
+    month: '2-digit',
+    day: '2-digit',
+  }).replace(/\//g, '.');
+}
+---
+
+<Layout title="実験一覧 — jikken.ai">
+  <main class="max-w-2xl mx-auto px-6 py-20">
+
+    <header class="mb-16">
+      <a href="/" class="text-xs tracking-widest text-gray-300 uppercase mb-3 block hover:text-gray-500 transition-colors">← jikken.ai</a>
+      <h1 class="text-lg font-medium text-gray-900 leading-snug mt-4">実験一覧</h1>
+      <p class="mt-3 text-sm text-gray-400">
+        AIでできると言われていることを、実際にやってみる。
+      </p>
+    </header>
+
+    <div class="border-t border-gray-100 mb-10"></div>
+
+    <ul class="space-y-0">
+      {sorted.map((exp) => (
+        <li class="border-b border-gray-50 last:border-0 py-5">
+          <div class="flex items-baseline justify-between gap-4 mb-1">
+            <span class={`text-xs font-mono ${statusColor[exp.data.status] || 'text-gray-400'}`}>
+              {exp.data.status}
+            </span>
+            <div class="flex items-center gap-3">
+              {exp.data.budget && (
+                <span class="text-xs text-gray-300 font-mono">{exp.data.budget}</span>
+              )}
+              <time class="text-xs text-gray-300 font-mono">
+                {formatDate(exp.data.startDate)}
+              </time>
+            </div>
+          </div>
+          <a href={`/experiments/${exp.data.slug}/`} class="group block">
+            <span class="text-sm font-medium text-gray-800 group-hover:text-gray-900 transition-colors">
+              {exp.data.title}
+            </span>
+            <p class="mt-1 text-sm text-gray-400 leading-relaxed">{exp.data.summary}</p>
+          </a>
+          <p class="mt-2 text-xs text-gray-300 italic">{exp.data.hypothesis}</p>
+        </li>
+      ))}
+    </ul>
+
+  </main>
+</Layout>
