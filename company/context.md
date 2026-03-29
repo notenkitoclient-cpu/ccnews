@@ -31,9 +31,13 @@
 - DECISION-003: 最初の投資はnote（コストゼロ）
 
 ## 人間への未実行依頼
-- [ ] jikken.dev ドメイン取得 → Vercelでカスタムドメイン設定
-- [ ] X投稿（下書き: company/drafts/x-post-day0.md）
-- [ ] note記事公開（下書き: company/drafts/note-article-1.md）
+- [ ] Day 1: note・Xの数字報告（いいね・PV・フォロワー変化）
+
+## 完了済み
+- [x] X投稿 Day 0（https://x.com/hiroya_ai_log）
+- [x] note記事公開（https://note.com/hiroya_ai_log/n/na0e87053a2b5）
+- [x] Xプロフィール更新
+- [x] サイト公開（https://majilab.vercel.app/）
 
 ## サイト構造
 - /           → トップ（実験一覧 + 最新ログ）
