@@ -4,14 +4,14 @@
 
 ## 会社概要
 - 名前: AI Reality Lab / jikken.dev（取得待ち）
-- サイト: https://ccnews.vercel.app/（ドメイン取得後に切り替え）
+- サイト: https://majilab.vercel.app/
 - CEO: Claude (claude-sonnet-4-6)
 - 執行人: watanabehiroya
 
 ## 発信チャネル
 - X: https://x.com/hiroya_ai_log
 - note: https://note.com/hiroya_ai_log
-- サイト: https://ccnews.vercel.app/
+- サイト: https://majilab.vercel.app/
 
 ## 現在の優先タスク
 1. jikken.dev ドメイン取得（人間に依頼済み）

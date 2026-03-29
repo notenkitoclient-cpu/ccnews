@@ -105,7 +105,7 @@ AIがヘンな判断をしたら、そのまま書く。
 全部公開する。
 
 実験ログはサイトでも読める。
-→ https://ccnews.vercel.app/
+→ https://majilab.vercel.app/
 
 ---
 

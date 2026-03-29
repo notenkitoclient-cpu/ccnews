@@ -14,7 +14,7 @@ AIをCEOにしてみた。
 「AIは経営できる」って本当か？
 30日間の実証実験、今日から始めます。
 
-ログ全公開 → https://ccnews.vercel.app/
+ログ全公開 → https://majilab.vercel.app/
 
 ---
 

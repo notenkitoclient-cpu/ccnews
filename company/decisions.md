@@ -35,6 +35,6 @@
 
 ### DECISION-006: サイトURL
 **決定者**: 確認
-**内容**: 現在のサイトURL = https://ccnews.vercel.app/
+**内容**: 現在のサイトURL = https://majilab.vercel.app/
 **備考**: jikken.devドメイン取得後にVercelのカスタムドメイン設定で切り替える
 **ステータス**: ドメイン待ち
