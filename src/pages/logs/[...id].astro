@@ -1,6 +1,7 @@
 ---
 import Layout from '@/layouts/Layout.astro';
-import { getCollection, render } from 'astro:content';
+import { getCollection } from 'astro:content';
+import { marked } from 'marked';
 
 export const prerender = true;
 
@@ -13,7 +14,6 @@ export async function getStaticPaths() {
 }
 
 const { log } = Astro.props;
-const { Content } = await render(log);
 
 function formatDate(date: Date) {
   return date.toLocaleDateString('ja-JP', {
@@ -22,6 +22,32 @@ function formatDate(date: Date) {
     day: '2-digit',
   }).replace(/\//g, '.');
 }
+
+// Split body into sections by ## headings
+function splitSections(body: string): { heading: string | null; content: string }[] {
+  const lines = body.split('\n');
+  const sections: { heading: string | null; content: string }[] = [];
+  let currentHeading: string | null = null;
+  let currentLines: string[] = [];
+
+  for (const line of lines) {
+    if (line.startsWith('## ')) {
+      if (currentLines.join('\n').trim()) {
+        sections.push({ heading: currentHeading, content: currentLines.join('\n').trim() });
+      }
+      currentHeading = line.replace('## ', '').trim();
+      currentLines = [];
+    } else {
+      currentLines.push(line);
+    }
+  }
+  if (currentLines.join('\n').trim()) {
+    sections.push({ heading: currentHeading, content: currentLines.join('\n').trim() });
+  }
+  return sections;
+}
+
+const sections = splitSections(log.body ?? '');
 ---
 
 <Layout title={`${log.data.title} — jikken.ai`} description={log.data.summary}>
@@ -52,7 +78,7 @@ function formatDate(date: Date) {
     </div>
 
     <!-- Messages -->
-    <div class="max-w-2xl mx-auto px-4 py-6 space-y-1">
+    <div class="max-w-2xl mx-auto px-4 py-6">
 
       <!-- Date system message -->
       <div class="flex justify-center py-3">
@@ -61,7 +87,7 @@ function formatDate(date: Date) {
         </span>
       </div>
 
-      <!-- Summary message -->
+      <!-- Summary bubble -->
       <div class="flex gap-3 mt-4">
         <div class="shrink-0 w-9 h-9 mt-0.5">
           <div class="w-9 h-9 rounded-lg bg-gray-900 flex items-center justify-center text-base">
@@ -84,24 +110,33 @@ function formatDate(date: Date) {
         </div>
       </div>
 
-      <!-- Full log as another message -->
-      <div class="flex gap-3 mt-1">
-        <div class="shrink-0 w-9 h-9 mt-0.5">
-          <div class="w-9 h-9"></div>
-        </div>
-        <div class="flex-1 min-w-0">
-          <div class="bg-white border border-gray-100 shadow-sm rounded-lg px-4 py-4 max-w-full">
-            <div class="prose prose-sm prose-gray max-w-none
-              prose-headings:font-medium prose-headings:text-gray-800
-              prose-p:text-gray-500 prose-p:leading-relaxed
-              prose-li:text-gray-500
-              prose-strong:text-gray-700 prose-strong:font-medium
-              prose-h2:mt-8 prose-h2:mb-3 prose-h2:text-sm prose-h2:tracking-wide">
-              <Content />
+      <!-- Section bubbles -->
+      {sections.map((section, i) => (
+        <div class="flex gap-3 mt-2">
+          <div class="shrink-0 w-9 h-9 mt-0.5">
+            {i === 0 ? (
+              <div class="w-9 h-9"></div>
+            ) : (
+              <div class="w-9 h-9"></div>
+            )}
+          </div>
+          <div class="flex-1 min-w-0">
+            <div class="bg-white border border-gray-100 shadow-sm rounded-lg px-4 py-3 max-w-full">
+              {section.heading && (
+                <p class="text-xs font-semibold text-gray-400 tracking-wide uppercase mb-2">{section.heading}</p>
+              )}
+              <div
+                class="prose prose-sm prose-gray max-w-none
+                  prose-p:text-gray-500 prose-p:leading-relaxed prose-p:my-1
+                  prose-li:text-gray-500
+                  prose-strong:text-gray-700 prose-strong:font-medium
+                  prose-a:text-blue-400 prose-a:no-underline hover:prose-a:underline"
+                set:html={marked.parse(section.content)}
+              />
             </div>
           </div>
         </div>
-      </div>
+      ))}
 
     </div>
 
