@@ -37,4 +37,18 @@ const logs = defineCollection({
   }),
 });
 
-export const collections = { news, experiments, logs };
+const meetings = defineCollection({
+  loader: glob({ pattern: '**/*.md', base: './src/content/meetings' }),
+  schema: z.object({
+    date: z.date(),
+    title: z.string(),
+    messages: z.array(z.object({
+      role: z.enum(['ceo', 'human', 'system']),
+      name: z.string(),
+      time: z.string(),
+      content: z.string(),
+    })),
+  }),
+});
+
+export const collections = { news, experiments, logs, meetings };

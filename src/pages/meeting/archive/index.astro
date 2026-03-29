@@ -1,0 +1,40 @@
+---
+import Layout from '@/layouts/Layout.astro';
+import { getCollection } from 'astro:content';
+
+const meetings = await getCollection('meetings');
+const sorted = meetings.sort((a, b) => b.data.date.valueOf() - a.data.date.valueOf());
+
+function formatDate(date: Date) {
+  return date.toLocaleDateString('ja-JP', {
+    year: 'numeric',
+    month: '2-digit',
+    day: '2-digit',
+  }).replace(/\//g, '.');
+}
+---
+
+<Layout title="チャット履歴 — majilab">
+  <main class="max-w-2xl mx-auto px-6 py-20">
+    <header class="mb-16">
+      <a href="/meeting/" class="text-xs tracking-widest text-gray-300 uppercase mb-3 block hover:text-gray-500 transition-colors">← 最新チャット</a>
+      <h1 class="text-lg font-medium text-gray-900 leading-snug mt-4">社内チャット履歴</h1>
+    </header>
+
+    <div class="border-t border-gray-100 mb-10"></div>
+
+    <ul class="space-y-0">
+      {sorted.map((meeting) => (
+        <li class="border-b border-gray-50 last:border-0 py-4">
+          <a href={`/meeting/${meeting.id}/`} class="group flex items-baseline justify-between gap-4">
+            <span class="text-sm font-medium text-gray-800 group-hover:text-gray-900 transition-colors">
+              {meeting.data.title}
+            </span>
+            <time class="text-xs text-gray-300 font-mono shrink-0">{formatDate(meeting.data.date)}</time>
+          </a>
+          <p class="mt-1 text-xs text-gray-300">{meeting.data.messages.length} メッセージ</p>
+        </li>
+      ))}
+    </ul>
+  </main>
+</Layout>
