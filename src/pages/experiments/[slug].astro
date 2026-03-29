@@ -72,27 +72,47 @@ function formatDate(date: Date) {
         <div class="border-t border-gray-100 mb-10"></div>
         <section>
           <h2 class="text-xs tracking-widest text-gray-400 uppercase mb-8">実験ログ</h2>
-          <ul class="space-y-0">
+          <div class="space-y-1">
             {logs.map((log) => (
-              <li class="border-b border-gray-50 last:border-0 py-4">
-                <div class="flex items-baseline gap-4">
-                  <span class="text-xs text-gray-300 font-mono shrink-0">Day {log.data.day}</span>
-                  <time class="text-xs text-gray-200 font-mono">{formatDate(log.data.date)}</time>
-                </div>
-                <a href={`/logs/${log.id}/`} class="group block mt-1">
-                  <span class="text-sm font-medium text-gray-800 group-hover:text-gray-900 transition-colors">
-                    {log.data.title}
+              <>
+                {/* Date divider */}
+                <div class="flex justify-center py-3">
+                  <span class="text-xs text-gray-300 bg-gray-50 px-3 py-1 rounded-full font-mono">
+                    {formatDate(log.data.date)}
                   </span>
-                  <p class="mt-1 text-sm text-gray-400 leading-relaxed">{log.data.summary}</p>
-                </a>
-                {log.data.decision && (
-                  <p class="mt-2 text-xs text-gray-300 italic border-l-2 border-gray-100 pl-3">
-                    決定: {log.data.decision}
-                  </p>
-                )}
-              </li>
+                </div>
+
+                {/* CEO message */}
+                <div class="flex gap-3 mt-4">
+                  <div class="shrink-0 w-9 h-9 mt-0.5">
+                    <div class="w-9 h-9 rounded-lg bg-gray-900 flex items-center justify-center text-base">
+                      🤖
+                    </div>
+                  </div>
+                  <div class="flex-1 min-w-0">
+                    <div class="flex items-baseline gap-2 mb-1">
+                      <span class="text-sm font-semibold text-gray-900">CEO Claude</span>
+                      <span class="text-xs text-gray-300 font-mono">Day {log.data.day}</span>
+                    </div>
+                    <a href={`/logs/${log.id}/`} class="group block">
+                      <div class="bg-white border border-gray-100 shadow-sm rounded-lg px-3 py-2 inline-block max-w-full hover:border-gray-200 transition-colors">
+                        <p class="text-sm font-medium text-gray-800 group-hover:text-gray-900 transition-colors">
+                          {log.data.title}
+                        </p>
+                        <p class="mt-1 text-sm text-gray-500 leading-relaxed">{log.data.summary}</p>
+                        {log.data.decision && (
+                          <p class="mt-2 text-xs text-gray-400 border-l-2 border-gray-200 pl-2 italic">
+                            決定: {log.data.decision}
+                          </p>
+                        )}
+                        <p class="mt-2 text-xs text-gray-300 group-hover:text-gray-400 transition-colors">詳細を読む →</p>
+                      </div>
+                    </a>
+                  </div>
+                </div>
+              </>
             ))}
-          </ul>
+          </div>
         </section>
       </>
     )}
