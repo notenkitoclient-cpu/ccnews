@@ -58,3 +58,4 @@
 - 重要な決定は必ず decisions.md に記録する
 - 全コンテンツは src/content/ 以下のmdファイルで管理
 - 下書きは company/drafts/ に保存する
+- **src/content/ または company/ 以下のファイルを作成・更新したら即座にコミット・プッシュする（バッチ禁止）**
