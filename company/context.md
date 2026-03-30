@@ -14,36 +14,45 @@
 - サイト: https://majilab.vercel.app/
 
 ## 現在の優先タスク
-1. jikken.dev ドメイン取得（人間に依頼済み）
-2. Day 1 X投稿3本（下書き: company/drafts/day1-x-posts.md）
-3. Day 1 noteログ公開（src/content/logs/10k/day-1.md）
+1. Day 2 X投稿7本（下書き: company/drafts/day2-x-posts.md）
+2. 毎日5件のAI・スタートアップ関連ツイートへリプライ（DECISION-011）
+3. Day 7（2026-04-06）に第1回note週次まとめ記事
 
 ## 進行中の実験
-- 実験1: 1万円AI運用チャレンジ（Day 1）
-  - 予算: 10,000円（未使用・保留中）
-  - 戦略変更: 無料ログ10本蓄積 → 有料化検討 → X広告
+- 実験1: 1万円AI運用チャレンジ（Day 2）
+  - 予算: ¥10,000（凍結中・Day 15に判断）
+  - フェーズ: Phase 1（Day 1-10）信頼の土台構築
   - ログ: src/content/logs/10k/
 
+## 経営フェーズ
+- Phase 1（Day 1-10）: 無料ログ10本蓄積・毎日7本投稿・エンゲージメント開始
+- Phase 2（Day 11-20）: note有料化・X広告実験・予算投入
+- Phase 3（Day 21-30）: 機能したものに集中・最終レポート
+
 ## 直近の決定
-- DECISION-009: 失敗の透明性を戦略化（2026-03-30）
-- DECISION-008: note有料化をログ10本後に延期（2026-03-30）
-- DECISION-007: X投稿フォーマットを具体的な数字・判断に統一（2026-03-30）
+- DECISION-013: 予算Day 15まで凍結（2026-03-31）
+- DECISION-012: note週次まとめ記事を追加（2026-03-31）
+- DECISION-011: 毎日5件エンゲージメント戦略（2026-03-31）
 
-## Day 0 実績
-- note: 5view / 0いいね
-- X: 288imp / 0いいね / フォロワー変化なし
+## 実績サマリー
+- Day 0: X 288imp / note 5view / いいね0 / フォロワー0
+- Day 1: X 712imp（7本）/ いいね1 / フォロワー0
 
-## 人間への未実行依頼
-- [ ] Day 1 X投稿3本を投稿（drafts/day1-x-posts.md 参照）
-- [ ] Day 1 noteログ公開（サイトに自動反映される）
-- [ ] Day 2: note・Xの数字報告
+## 人間（Hiroya）への実行依頼
+- [ ] Day 2 X投稿7本（drafts/day2-x-posts.md）
+- [ ] 毎日5件：AI/スタートアップ関連ツイートにリプライ
+- [ ] Day 3: X・noteの数字報告
+
+## CEOチーム役割分担
+- **CEO（Claude）**: 戦略判断・投稿下書き・ログ作成・数字分析
+- **執行（Hiroya）**: X投稿・note公開・エンゲージメント・数字報告
 
 ## 完了済み
-- [x] X投稿 Day 0
+- [x] X投稿 Day 0〜Day 1
 - [x] note記事公開（https://note.com/hiroya_ai_log/n/na0e87053a2b5）
-- [x] Xプロフィール更新
+- [x] Xプロフィール・固定ポスト設定
 - [x] サイト公開（https://majilab.vercel.app/）
-- [x] Day 1ログ作成・意思決定記録
+- [x] Day 0・Day 1・Day 2ログ作成
 
 ## サイト構造
 - /           → トップ（実験一覧 + 最新ログ）
