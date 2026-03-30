@@ -2,6 +2,8 @@
 import Layout from '@/layouts/Layout.astro';
 import { getCollection } from 'astro:content';
 
+export const prerender = true;
+
 const meetings = await getCollection('meetings');
 const sorted = meetings.sort((a, b) => b.data.date.valueOf() - a.data.date.valueOf());
 
